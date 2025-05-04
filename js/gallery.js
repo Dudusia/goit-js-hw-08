@@ -104,8 +104,9 @@ galleryLinks.forEach(link => {
 })
 
 gallery.addEventListener("click", function (event) {
-	console.log(event.target.dataset.source); // Елемент, на якому відбулась подія click
-    basicLightbox.create(`
-		<img width="1280" src="${event.target.dataset.source}">
-	`).show()
+    if (event.target.localName === "img" && event.target.dataset.source) {
+        basicLightbox.create(`
+            <img width="1280" src="${event.target.dataset.source}">
+        `).show()
+    }
 });
