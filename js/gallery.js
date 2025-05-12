@@ -73,6 +73,7 @@ const classNames = {
 
 const gallery = document.querySelector(".gallery");
 
+let result = "";
 for (const {preview: src, original: dataSource, description: alt} of images) {
     
     const img = document.createElement("img");
@@ -92,8 +93,10 @@ for (const {preview: src, original: dataSource, description: alt} of images) {
     li.classList.add(classNames.li);
     li.appendChild(a)
 
-    gallery.appendChild(li)
+    result += li.outerHTML
 }
+
+gallery.insertAdjacentHTML("beforeend", result);
 
 const galleryLinks = document.querySelectorAll('.gallery-link');
 
@@ -106,7 +109,7 @@ galleryLinks.forEach(link => {
 gallery.addEventListener("click", function (event) {
     if (event.target.localName === "img" && event.target.dataset.source) {
         basicLightbox.create(`
-            <img width="1280" src="${event.target.dataset.source}">
+            <img style="max-width:100%;height:auto;" src="${event.target.dataset.source}">
         `).show()
     }
 });
